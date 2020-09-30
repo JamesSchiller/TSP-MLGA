@@ -1,4 +1,8 @@
+# TSP-MLGA
+
 ![graph](https://github.com/JamesSchiller/TSP-MLGA/blob/master/Untitled.png)
+
+## Summary
 
 ```
 Each gene on the chromsome is either a 0, 1, 2, or 3, which corresponds to a strategy. 
@@ -10,7 +14,7 @@ Strategies:
 2 - first_weight
 3 - highest_weight
 
-chromosome[o]
+organisms
 [2, 2, 0, 1, 1, 1, 2, 1, 3, 1, 3, 3, 2]
 [3, 3, 1, 0, 3, 1, 0, 3, 3, 1, 0, 1, 2]
 [1, 3, 1, 3, 0, 0, 1, 1, 0, 3, 0, 0, 3]
@@ -63,4 +67,20 @@ weight of 30 would be converted to 30 / 100 = .30
 By always subtracting a decimal, scores with higher nodes visited is always still higher 
 cause your always subtracting from nodes visited. 
 14 - x will always be higher than 13 - y. 
+```
+
+## Run Instructions
+```
+source venv/bin/activate
+python main.py
+```
+
+## Example Output
+```
+best organism
+-----------------
+organism: [2, 2, 2, 0, 2, 0, 0, 0, 1, 1, 3, 3, 3, 1]
+visited: ['a', 'b', 'd', 'c', 'h', 'j', 'i', 'f', 'e', 'g']
+node_score: 10
+weight_score: 29
 ```
