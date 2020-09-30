@@ -1,3 +1,4 @@
+```
 Each gene on the chromsome is either a 0, 1, 2, or 3, which corresponds to a strategy. 
 
 Strategies:
@@ -60,4 +61,4 @@ weight of 30 would be converted to 30 / 100 = .30
 By always subtracting a decimal, scores with higher nodes visited is always still higher 
 cause your always subtracting from nodes visited. 
 14 - x will always be higher than 13 - y. 
-
+```
