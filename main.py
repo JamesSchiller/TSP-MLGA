@@ -3,6 +3,7 @@ from random import random
 from decimal import *
 import json
 
+global REPORT
 global GENERATIONS
 global MUTATION_RATE
 global organisms
@@ -10,8 +11,6 @@ global offspring
 global cdfs
 global scores
 global cdfsum
-
-file = open('report.txt', 'w')
 
 graph = {
   'connections': [
@@ -32,6 +31,7 @@ graph = {
   ]
 }
 
+REPORT = True
 ORGANISMS = 100
 GENES = len(graph['connections'])
 GENERATIONS = 300
@@ -48,23 +48,25 @@ scores = [ 0 for i in enumerate(organisms) ]
 cdfsum = 0
 cdfs = [ 0 for i in enumerate(organisms) ]
 
-file.write('graph\n')
-file.write('-----------------\n')
-for connection in graph['connections']:
-  file.write(str(connection) + '\n')
-# file.write(json.dumps(graph['connections']) + '\n')
-file.write('-----------------\n')
-file.write('parameters\n')
-file.write('-----------------\n')
-file.write('ORGANISMS: ' + str(ORGANISMS)  + '\n')
-file.write('GENES: ' + str(GENES) + '\n')
-file.write('GENERATIONS: ' + str(GENERATIONS) + '\n')
-file.write('MUTATION_RATE: ' + str(MUTATION_RATE) + '\n')
-file.write('-----------------\n')
-file.write('initial organisms\n')
-file.write('-----------------\n')
-for organism in organisms:
-  file.write(str(organism) + '\n')
+if REPORT:
+  file = open('report.txt', 'w')
+  file.write('graph\n')
+  file.write('-----------------\n')
+  for connection in graph['connections']:
+    file.write(str(connection) + '\n')
+  # file.write(json.dumps(graph['connections']) + '\n')
+  file.write('-----------------\n')
+  file.write('parameters\n')
+  file.write('-----------------\n')
+  file.write('ORGANISMS: ' + str(ORGANISMS)  + '\n')
+  file.write('GENES: ' + str(GENES) + '\n')
+  file.write('GENERATIONS: ' + str(GENERATIONS) + '\n')
+  file.write('MUTATION_RATE: ' + str(MUTATION_RATE) + '\n')
+  file.write('-----------------\n')
+  file.write('initial organisms\n')
+  file.write('-----------------\n')
+  for organism in organisms:
+    file.write(str(organism) + '\n')
 
 def lowest_weight(connections_subset_list):
   lowest_weight = 10
@@ -151,12 +153,11 @@ def think():
       cdfsum = 0
       cdfs = [ 0 for i in enumerate(organisms) ]
 
-    file.write('generation: ' + str(generation) + '\n')
-    
-    for organism in organisms: 
-      file.write(str(organism) + '\n')
-
-  file.write('-----------------\n')
+    if REPORT: 
+      file.write('generation: ' + str(generation) + '\n')
+      
+      for organism in organisms: 
+        file.write(str(organism) + '\n')
 
 def do(organism):
   curr_node = 'a'
@@ -198,13 +199,15 @@ def do(organism):
 
   node_score = len(visited_list)
 
-  file.write('best organism\n')
-  file.write('-----------------\n')
-  file.write('organism: ' + str(organism) + '\n')
-  file.write('visited: ' + str(visited_list) + '\n')
-  file.write('node_score: ' + str(node_score) + '\n')
-  file.write('weight_score: ' + str(weight_score) + '\n')
-  file.close()
+  if REPORT:
+    file.write('-----------------\n')
+    file.write('best organism\n')
+    file.write('-----------------\n')
+    file.write('organism: ' + str(organism) + '\n')
+    file.write('visited: ' + str(visited_list) + '\n')
+    file.write('node_score: ' + str(node_score) + '\n')
+    file.write('weight_score: ' + str(weight_score) + '\n')
+    file.close()
 
   print('best organism')
   print('-----------------')
