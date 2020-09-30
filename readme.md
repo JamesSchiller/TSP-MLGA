@@ -1,3 +1,5 @@
+![graph](https://github.com/JamesSchiller/TSP-MLGA/blob/master/Untitled.png)
+
 ```
 Each gene on the chromsome is either a 0, 1, 2, or 3, which corresponds to a strategy. 
 
