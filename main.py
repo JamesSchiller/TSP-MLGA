@@ -37,8 +37,18 @@ GENES = len(graph['connections'])
 GENERATIONS = 300
 MUTATION_RATE = 0.05
 
-organisms = [ [0] * GENES for i in range(ORGANISMS) ]
-offspring = [ [0] * GENES for i in range(ORGANISMS) ]
+organisms = []
+for o in range(ORGANISMS):
+  genes = []
+  for g in range(GENES):
+    genes.append([0])
+  organisms.append(genes)
+
+offspring = []
+for o in range(ORGANISMS):
+  for g in range(GENES):
+    genes.append([0])
+  offspring.append(genes)
 
 for o in range(ORGANISMS):
   for g in range(GENES):
@@ -219,7 +229,7 @@ def do(organism):
 def crossover(parent1index, parent2index, childindex):
     global organisms 
 
-    cutpoint = randint(0, GENES)
+    cutpoint = randint(1, GENES-1)
     offspring[childindex] = organisms[parent1index][:cutpoint] + organisms[parent2index][cutpoint:]
 
 def mutate(childindex):
