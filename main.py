@@ -75,7 +75,6 @@ def highest_weight(connections_subset_list):
   return highest_connection
 
 def evolve():
-
     for generation in range(GENERATIONS):
         cdf = []
         cdf_total = 0
@@ -160,7 +159,6 @@ def crossover(cdf, cdf_total, scores):
 
         offspring = chromosomes[parent_1_index][:cut_point] + chromosomes[parent_2_index][cut_point:]
         offsprings.append(offspring)
-
 
 def mutate():
     global offsprings
