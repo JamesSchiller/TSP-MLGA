@@ -27,9 +27,9 @@ graph = {
   ]
 }
 
-CHROMOSOMES = 6
+CHROMOSOMES = 100
 GENES = len(graph['connections'])
-GENERATIONS = 4
+GENERATIONS = 300
 MUTATION_RATE = Decimal('1') / Decimal(GENES)
 STRATEGIES = 4
 MAX_WEIGHT = 10
@@ -59,10 +59,8 @@ def random_weight(connections_subset_list):
 
   return random_connection
 
-
 def first_weight(connections_subset_list):
   return connections_subset_list[0]
-
 
 def highest_weight(connections_subset_list):
   highest_weight = 0
@@ -75,6 +73,8 @@ def highest_weight(connections_subset_list):
   return highest_connection
 
 def evolve():
+    highest_score = Decimal(0)
+
     for generation in range(GENERATIONS):
         cdf = []
         cdf_total = 0
@@ -125,6 +125,12 @@ def evolve():
             scores.append(score)
             cdf_total = cdf_total + score
             cdf.append(cdf_total)
+
+            if score.compare(highest_score) > 0:
+                print(chromosome)
+                print(score)
+                print(visited_list)
+                highest_score = score
 
         crossover(cdf, cdf_total, scores)
         mutate()
