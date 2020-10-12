@@ -1,4 +1,5 @@
 from random import randint
+from random import random
 from decimal import *
 
 global chromosomes
@@ -26,9 +27,10 @@ graph = {
   ]
 }
 
-CHROMOSOMES = 2
+CHROMOSOMES = 6
 GENES = len(graph['connections'])
 GENERATIONS = 4
+MUTATION_RATE = Decimal('1') / Decimal(GENES)
 STRATEGIES = 4
 MAX_WEIGHT = 10
 
@@ -125,10 +127,49 @@ def evolve():
             cdf_total = cdf_total + score
             cdf.append(cdf_total)
 
-            # crossover(cdf, cdf_total, scores)
-            # mutate()
-            replace_old_population()
+        crossover(cdf, cdf_total, scores)
+        mutate()
+        replace_old_population()
 
+def crossover(cdf, cdf_total, scores):
+    global chromosomes
+    global offsprings
+
+    for i in range(CHROMOSOMES):
+        parent_1_index = 0
+        parent_2_index = 0
+
+        r1 = Decimal(random())
+        random_number_1 = r1 * Decimal(cdf_total)
+
+        for j in range(CHROMOSOMES):
+            # -1 - if a < b, 0 - if a == b
+            if random_number_1.compare(cdf[j]) < 1:
+                parent_1_index = j
+                break
+
+        r2 = Decimal(random())
+        random_number_2 = r2 * cdf_total
+
+        for j in range(CHROMOSOMES):
+            if random_number_2.compare(cdf[j]) < 1:
+                parent_2_index = j
+                break
+
+        cut_point = randint(1, GENES-1)  # 0|1|0|0|1
+
+        offspring = chromosomes[parent_1_index][:cut_point] + chromosomes[parent_2_index][cut_point:]
+        offsprings.append(offspring)
+
+
+def mutate():
+    global offsprings
+
+    for i in range(CHROMOSOMES):
+        for j in range(GENES):
+            r1 = Decimal(random())
+            if r1.compare(MUTATION_RATE) == -1:
+                offsprings[i][j] ^= 1
 
 def replace_old_population():
     global chromosomes
