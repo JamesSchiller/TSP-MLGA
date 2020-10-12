@@ -1,8 +1,11 @@
 from random import randint
+from decimal import *
 
-global graph
+global chromosomes
+global offsprings
 
 chromosomes = []
+offsprings = []
 
 graph = {
   'connections': [
@@ -74,12 +77,13 @@ def evolve():
     for generation in range(GENERATIONS):
         cdf = []
         cdf_total = 0
-        payoffs = []
+        scores = []
 
-        for chromosome in chromosomes:
+        for i, chromosome in enumerate(chromosomes):
             visited_list = []
             curr_node = 'a'
             visited_list.append('a')
+            weight_score = 0
 
             for gene in chromosome:
                 connections_subset_list = []
@@ -110,21 +114,27 @@ def evolve():
                     visited_list.append(connected_node)
                     curr_node = connected_node
 
-                    # todo: weights = scores or payoff or ...
-                    
-                    # node_score = len(visited_list)
-                    # weight_score = weight_score + choosen_connection[2]
+                    weight_score = weight_score + choosen_connection[2]
                 else:
                     continue
 
-            # weight_score_pct = Decimal(weight_score) / Decimal(100) 
-            # scores[o] = Decimal(node_score) - Decimal(weight_score_pct))      
-            # cdf_total = cdf_total + scores[o]
-            # cdfs[o] = cdfsum 
+            weight_score_pct = Decimal(weight_score) / Decimal(100)
+            node_score = len(visited_list)
+            score = Decimal(node_score) - Decimal(weight_score_pct)
+            scores.append(score)
+            cdf_total = cdf_total + score
+            cdf.append(cdf_total)
 
-            # crossover(cdf, cdf_total, payoffs)
+            # crossover(cdf, cdf_total, scores)
             # mutate()
-            # replace_old_population()
+            replace_old_population()
+
+
+def replace_old_population():
+    global chromosomes
+    global offsprings
+
+    chromosomes = offsprings.copy()
 
 evolve()        
 
