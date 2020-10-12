@@ -5,6 +5,9 @@
 ## Summary
 
 ```
+TSP is an optimization problem. GA can be used for optimization problems and for solving problems in general. 
+TSP is NP-HARD, harder than any algorithmic problem most of us will find at work.
+  
 Each gene on the chromsome is either a 0, 1, 2, or 3, which corresponds to a strategy. 
 
 Strategies:
@@ -67,6 +70,17 @@ weight of 30 would be converted to 30 / 100 = .30
 By always subtracting a decimal, scores with higher nodes visited is always still higher 
 cause your always subtracting from nodes visited. 
 14 - x will always be higher than 13 - y. 
+Another example, 
+You have 2 chromosomes
+Chromosome visited 10 nodes each
+Chromosome 1 visited weights of 
+1 5 2 4 3 1 2 7 5 = 30
+Chromosome 2 visited weights of 
+1 5 3 5 7 2 1 1 4 = 29
+Chromsome 2 is better. 
+Chromosome 1 score is 10 - (30 / 100) = 9.70 <----- weight 30 
+Chromosome 2 score is 10 - (29 / 100) = 9.71 <----- weight 29 is better than 
+Chromosome 2 should be better because it has lower weight of 29 and is reflected in score. 
 ```
 
 ## Run Instructions
