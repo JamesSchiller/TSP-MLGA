@@ -1,13 +1,13 @@
 # TSP-MLGA
 
-![graph](https://github.com/JamesSchiller/TSP-MLGA/blob/master/Untitled.png)
+![graph](https://github.com/JamesSchiller/TSP-MLGA/blob/master/tsp.png)
 
 ## Summary
 
 ```
 TSP is an optimization problem. GA can be used for optimization problems and for solving problems in general. 
 TSP is NP-HARD, harder than any algorithmic problem most of us will find at work.
-  
+
 Each gene on the chromsome is either a 0, 1, 2, or 3, which corresponds to a strategy. 
 
 Strategies:

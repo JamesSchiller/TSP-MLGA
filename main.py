@@ -1,6 +1,7 @@
 from random import randint
 from random import random
 from decimal import *
+from copy import deepcopy
 
 global chromosomes
 global offsprings
@@ -9,23 +10,35 @@ chromosomes = []
 offsprings = []
 
 graph = {
-  'connections': [
-    ('a', 'b', 1), 
-    ('a', 'c', 2), 
-    ('b', 'd', 5), 
-    ('c', 'd', 3), 
-    ('d', 'e', 2), 
-    ('d', 'f', 3), 
-    ('e', 'f', 1), 
-    ('e', 'g', 4), 
-    ('f', 'g', 3), 
-    ('d', 'i', 5), 
-    ('i', 'j', 2), 
-    ('j', 'h', 7), 
-    ('h', 'c', 5), 
-    ('f', 'i', 1)    
-  ]
+    'connections': [
+        ('a', 'b', 1),
+        ('a', 'c', 2),
+        ('b', 'd', 5),
+        ('c', 'd', 3),
+        ('d', 'e', 2),
+        ('d', 'f', 3),
+        ('h', 'c', 5)
+    ]
 }
+
+# graph = {
+#   'connections': [
+#     ('a', 'b', 1), 
+#     ('a', 'c', 2), 
+#     ('b', 'd', 5), 
+#     ('c', 'd', 3), 
+#     ('d', 'e', 2), 
+#     ('d', 'f', 3), 
+#     ('e', 'f', 1), 
+#     ('e', 'g', 4), 
+#     ('f', 'g', 3), 
+#     ('d', 'i', 5), 
+#     ('i', 'j', 2), 
+#     ('j', 'h', 7), 
+#     ('h', 'c', 5), 
+#     ('f', 'i', 1)    
+#   ]
+# }
 
 CHROMOSOMES = 100
 GENES = len(graph['connections'])
@@ -181,7 +194,34 @@ def replace_old_population():
 
     chromosomes = offsprings.copy()
 
-evolve()        
+def DFS(G, v, prev_path, prev_discovered):
+    connections_subset = []
+    
+    path = deepcopy(prev_path)
+    discovered = deepcopy(prev_discovered)
 
+    path.append(v)
+
+    for connection in graph['connections']:
+        if connection[0] == v or connection[1] == v:
+            if not (connection[0] in path and connection[1] in path):
+                connections_subset.append(connection)
+
+    for connection in connections_subset:
+        if connection[0] == v:
+            w = connection[1]
+        else:
+            w = connection[0]
+        DFS(G, w, path, discovered)
+
+    print(path)
+
+# evolve(graph['connections'], 'a')        
+
+v = 'a'
+path = []
+discovered = []
+
+DFS(graph['connections'], v, path, discovered)
 
 
